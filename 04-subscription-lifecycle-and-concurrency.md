@@ -9,10 +9,10 @@ The current flow couples Nsmf Create/Delete to Nupf Create/Delete:
 3. SMF stores the Nsmf-to-Nupf linkage only after UPF Create succeeds.
 4. Nsmf Delete attempts the linked UPF Delete and then removes local state.
 
-This is consistent with the Task2 semantics: UPF notifications go directly to
-NWDAF, while SMF coordinates the subscription lifecycle. The issue is not the
-coupling itself, but that the current implementation is synchronous,
-process-local, and best-effort.
+This is consistent with the selected Event Exposure semantics: UPF
+notifications go directly to NWDAF, while SMF coordinates the subscription
+lifecycle. The issue is not the coupling itself, but that the current
+implementation is synchronous, process-local, and best-effort.
 
 For a free5GC-quality implementation, keep the coupling but move the policy out
 of the HTTP handler and into a processor/service layer with explicit rollback,
@@ -33,8 +33,8 @@ After an SMF restart:
 - SMF cannot cascade Delete because linkage is gone;
 - UPF may continue notifying NWDAF indefinitely.
 
-This is acceptable only if documented as volatile V0 behavior. It should not be
-presented as durable subscription support.
+This is acceptable only if documented as volatile initial-capability behavior.
+It should not be presented as durable subscription support.
 
 ## Medium: Orphan Window After UPF Create
 
@@ -62,7 +62,8 @@ potential permanent orphan because SMF discards the data required for retry.
 
 ### Recommended Direction
 
-Keep the current behavior only as an explicit best-effort V0 policy.
+Keep the current behavior only as an explicit best-effort
+initial-capability policy.
 For a general implementation, consider:
 
 - a `delete-pending` state;

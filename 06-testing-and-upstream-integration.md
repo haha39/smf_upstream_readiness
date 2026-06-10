@@ -1,6 +1,15 @@
 # Testing and Upstream Integration
 
-## Current Test Results
+## Validation Evidence
+
+### Prior Testbed Result
+
+The prototype branch completed the intended NWDAF -> SMF -> UPF -> NWDAF
+Create-to-Notify flow before this readiness audit. That result establishes the
+prototype as a behavioral reference, not as proof that a future upstream-based
+branch remains compatible.
+
+### Tests Run During This Audit
 
 The following read-only test commands were run with Go build cache redirected
 to `/tmp`:
@@ -19,7 +28,18 @@ go-upf:
   package compiles, but reports [no test files]
 ```
 
-No complete testbed E2E run was performed during this review.
+No complete testbed E2E run was performed during this audit. The previously
+reported testbed result and the audit-time package checks are therefore
+separate evidence.
+
+### Required Revalidation
+
+The clean PR branch must rerun:
+
+- focused EES unit and integration tests;
+- current upstream SMF regression tests;
+- the complete NWDAF-SMF-UPF testbed flow;
+- OAuth/TLS-enabled cases when those paths are implemented.
 
 ## High: No Direct SMF EES Tests
 

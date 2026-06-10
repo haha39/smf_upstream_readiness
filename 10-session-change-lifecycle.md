@@ -24,7 +24,7 @@ Relevant code:
 ### Recommended Direction
 
 Define a PDU-session-release hook for EES-owned subscriptions. The policy can
-be best-effort in V0, but it must be explicit:
+be best-effort in the initial capability, but it must be explicit:
 
 1. find EES subscriptions bound to the released session;
 2. attempt linked UPF Delete;
@@ -65,7 +65,8 @@ AN -> I-UPF -> PSA-UPF
 ```
 
 the current resolver subscribes only the selected anchor/PSA UPF. That may be
-valid for V0 if the expected measurement source is the anchor UPF, but it is
+valid for the initial capability if the expected measurement source is the
+anchor UPF, but it is
 not automatically valid for every user-data-usage deployment.
 
 The implementation should document whether usage measurements are collected

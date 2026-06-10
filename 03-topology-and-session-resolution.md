@@ -127,7 +127,8 @@ AN -> I-UPF -> PSA-UPF
 the current behavior subscribes only the selected anchor. It does not enumerate
 all UPFs carrying the session.
 
-This is documented V0 behavior, not an implementation accident. It becomes a
+This is documented initial-capability behavior, not an implementation
+accident. It becomes a
 problem only if usage measurements are expected from every UPF in a chained
 path.
 

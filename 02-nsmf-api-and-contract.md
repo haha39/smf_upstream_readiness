@@ -19,7 +19,7 @@ Relevant code:
 - `../smf/pkg/factory/config.go`
 - `../smf/internal/sbi/api_eventexposure.go`
 
-### Why E2E Still Passes
+### Why the Prior Testbed Flow Still Passed
 
 The current NWDAF extracts only the final path segment from `Location`, then
 constructs its own Delete URI from the configured SMF endpoint.
@@ -51,8 +51,8 @@ separate.
 
 ## Medium: Advertised PERIODIC-Only Capability Is Not Validated
 
-The V0 capability comment says only `PERIODIC` is supported, but Create does
-not validate `notifMethod`.
+The advertised initial capability says only `PERIODIC` is supported, but
+Create does not validate `notifMethod`.
 
 Current behavior:
 
@@ -73,7 +73,7 @@ implement an explicit mapping with documented semantics.
 
 ## Medium: Incomplete Input Validation
 
-The current V0 validation does not fully validate:
+The current initial-capability validation does not fully validate:
 
 - SUPI syntax;
 - URI syntax for `notifUri` and `bundledEventNotifyUri`;
@@ -95,8 +95,8 @@ The implementation rejects every additional event or UPF event type. A mixed
 subscription containing the required supported event plus another event is
 rejected in full.
 
-This is acceptable as an explicit V0 limitation, but the contract and
-ProblemDetails should clearly say "only" rather than "contains".
+This is acceptable as an explicit initial-capability limitation, but the
+contract and ProblemDetails should clearly say "only" rather than "contains".
 
 ## Medium: Subscription Control Semantics Are Not Implemented
 
@@ -142,8 +142,8 @@ will complicate future GET support.
 
 ## Low: Stale Lifecycle Comments
 
-The Create handler still contains Patch 1 comments stating that no UPF
-cascading occurs, although the handler now performs UPF Create before storing
-local state.
+The Create handler still contains comments from an earlier implementation
+stage stating that no UPF cascading occurs, although the handler now performs
+UPF Create before storing local state.
 
 This does not affect execution but creates maintenance risk.

@@ -5,15 +5,24 @@
 This document covers Nsmf-to-Nupf wire compatibility and feature negotiation.
 Transport security and endpoint trust are covered separately.
 
+The local schema review used:
+
+- 3GPP TS 29.508 V19.4.0;
+- 3GPP TS 29.564 V19.5.0;
+- 3GPP TS 29.571 V19.5.0.
+
+The final upstream baseline remains subject to maintainer guidance in
+[free5gc/openapi#75](https://github.com/free5gc/openapi/issues/75).
+
 ## High: `ueIpAddress` Uses a Testbed-Specific JSON Shape
 
-The reviewed TS 29.564 schema defines `ueIpAddress` as the common `IpAddr`
-object. An IPv4 value is therefore represented as:
+The reviewed TS 29.564 V19.5.0 schema defines `ueIpAddress` as the common
+TS 29.571 V19.5.0 `IpAddr` object. An IPv4 value is therefore represented as:
 
 ```json
 {
   "ueIpAddress": {
-    "ipv4Addr": "10.60.0.1"
+    "ipv4Addr": "192.0.2.1"
   }
 }
 ```
@@ -22,7 +31,7 @@ The current handwritten Nupf request instead sends:
 
 ```json
 {
-  "ueIpAddress": "10.60.0.1"
+  "ueIpAddress": "192.0.2.1"
 }
 ```
 
@@ -49,8 +58,8 @@ current flow does not:
 - inspect the UPF's negotiated response;
 - bind accepted behavior to the negotiated result.
 
-Without negotiation, SMF assumes that every selected UPF supports the fixed V0
-behavior.
+Without negotiation, SMF assumes that every selected UPF supports the fixed
+initial behavior.
 
 ### Recommended Direction
 
