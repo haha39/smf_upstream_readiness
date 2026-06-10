@@ -98,6 +98,30 @@ rejected in full.
 This is acceptable as an explicit V0 limitation, but the contract and
 ProblemDetails should clearly say "only" rather than "contains".
 
+## Medium: Subscription Control Semantics Are Not Implemented
+
+The reviewed Nsmf and Nupf schemas include lifecycle and reporting controls
+that are not implemented by the current fixed flow:
+
+- `expiry`;
+- `maxReports`;
+- `immediateFlag`;
+- notification activation, deactivation, and retrieval flags;
+- sampling and partition criteria;
+- notification muting settings;
+- subscription termination reporting;
+- alternate notification addresses.
+
+These are broader than additional event types or filters. Accepting one without
+implementing its lifecycle effect could produce a subscription that behaves
+differently from the consumer's request.
+
+### Recommended Direction
+
+Reject unsupported controls explicitly in the first upstream version. Add each
+control only with corresponding validation, state, timer/lifecycle behavior,
+Nupf mapping, and tests.
+
 ## Low: Response Does Not Preserve Full Accepted Event Data
 
 The Create response includes only:

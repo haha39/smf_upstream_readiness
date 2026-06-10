@@ -87,7 +87,7 @@ allow a resolver strategy such as:
 2. discovered service endpoint;
 3. endpoint learned from UPF association metadata.
 
-## Medium: Fixed Test NF ID in Example Configuration
+## Medium: Nupf Consumer NF Identity Is Configurable Independently
 
 The example config sets:
 
@@ -95,9 +95,14 @@ The example config sets:
 nupfEeNfId: "550e8400-e29b-41d4-a716-446655440000"
 ```
 
-The implementation already falls back to the actual SMF NF instance ID when
-this setting is absent. A general example should prefer that fallback and use
-the fixed value only in testbed-specific configuration.
+The implementation falls back to the actual SMF NF instance ID when this
+setting is absent. That fallback is the clearer general behavior because SMF is
+the NF service consumer creating the Nupf subscription.
+
+The override name can also be interpreted as the target UPF identity. A generic
+implementation should remove it unless a standards-based use case requires a
+different consumer identity, or rename and validate it accordingly. Fixed
+values belong only in testbed-specific configuration.
 
 Relevant code:
 
