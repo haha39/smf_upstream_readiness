@@ -8,7 +8,7 @@ required to build a clean PR branch from current `upstream/main`.
 ## Review Snapshot
 
 - Review date: 2026-06-06
-- Closure review update: 2026-06-09
+- Latest review update: 2026-06-11
 - SMF: `8668372` (`ees-only`)
 - NWDAF: `2be6137` (`master`)
 - go-upf: `76e4149` (`dev/ees-next-version`)
@@ -29,6 +29,9 @@ required to build a clean PR branch from current `upstream/main`.
 10. [Session-change lifecycle](10-session-change-lifecycle.md)
 11. [Logging category alignment](11-logging-category-alignment.md)
 12. [Community and upstream contribution](12-community-and-upstream-contribution.md)
+13. [Protocol interoperability](13-protocol-interoperability.md)
+14. [Transport security and endpoint trust](14-transport-security-and-endpoint-trust.md)
+15. [Deployment scaling and shutdown](15-deployment-scaling-and-shutdown.md)
 
 ## Reference Policy
 
@@ -61,6 +64,11 @@ documents.
   file, but no reproducible OpenAPI regeneration workflow protects the changes.
 - UE release and UPF relocation after subscription are not tied back to EES
   cleanup or migration.
+- The Nupf `ueIpAddress` JSON shape follows the current testbed peer rather
+  than the reviewed TS 29.564 `IpAddr` object.
+- UPF-provided absolute `Location` values are used without origin validation.
+- Process-local state cannot support replicated SMF routing, and graceful
+  shutdown has no EES drain policy.
 - The current 14-commit prototype mixes runtime code, copied specifications,
   design history, and testbed configuration and is not suitable as-is for an
   upstream PR.
@@ -79,6 +87,9 @@ documents.
   into an upstream PR branch.
 - Cross-repository ownership, release baseline, and PR order require public
   maintainer alignment before generated protocol work is finalized.
+- Nupf feature negotiation and typed success/error response handling are not
+  implemented.
+- Outbound Nupf OAuth and TLS trust policy are incomplete.
 - UPF response bodies are read without a size limit and can be returned and
   logged without sanitization.
 - Handwritten EES identifiers do not consistently follow existing SMF telecom

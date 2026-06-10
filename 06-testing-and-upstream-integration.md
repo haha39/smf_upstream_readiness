@@ -30,11 +30,17 @@ There are no focused tests for:
 - resolver error mapping;
 - missing UE / no active session behavior;
 - Nsmf-to-Nupf request mapping;
+- exact `IpAddr` JSON representation;
+- `supportedFeatures` negotiation;
 - UPF Create response handling;
+- typed UPF ProblemDetails and retry metadata;
 - state rollback;
 - Delete cascade;
+- UPF `Location` origin validation;
 - UE release cleanup policy;
 - UPF relocation policy;
+- replicated SMF routing behavior;
+- graceful shutdown and in-flight operation behavior;
 - relative and absolute UPF Location handling;
 - concurrent Delete;
 - restart/reconciliation behavior.
@@ -144,4 +150,7 @@ Without these values, an E2E result cannot be reproduced reliably.
 6. UE release and UPF relocation lifecycle policy.
 7. UPF Create ambiguous retry behavior.
 8. UPF Delete failure and orphan reconciliation.
-9. OAuth-enabled NWDAF-SMF-UPF flow.
+9. `IpAddr`, feature negotiation, and typed UPF response contract tests.
+10. Cross-origin `Location` rejection and relative Location resolution.
+11. OAuth/TLS-enabled NWDAF-SMF-UPF flow.
+12. Multi-instance routing and graceful-shutdown lifecycle tests.

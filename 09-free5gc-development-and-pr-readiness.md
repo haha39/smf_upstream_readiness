@@ -372,6 +372,13 @@ Before opening the free5GC PR:
 [ ] Add handler, processor, consumer, and repository tests
 [ ] Add concurrency and cancellation tests
 [ ] Add missing-UE, UE-release, and UPF-relocation tests or explicit V0 policy tests
+[ ] Use the selected OpenAPI `IpAddr` wire representation
+[ ] Define supportedFeatures negotiation and UPF success-body handling
+[ ] Preserve typed upstream ProblemDetails and retry metadata
+[ ] Validate UPF Location origin and subscription path
+[ ] Integrate outbound Nupf OAuth and TLS trust configuration
+[ ] Declare or implement multi-instance subscription ownership
+[ ] Define graceful shutdown and in-flight EES operation policy
 [ ] Bound and sanitize upstream response bodies
 [ ] Align inbound and outbound EES log categories with SMF conventions
 [ ] Decide safe Create retry semantics
