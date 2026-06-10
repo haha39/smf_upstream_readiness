@@ -1,5 +1,8 @@
 # SMF Branch Conflict Report
 
+This report uses "prototype branch" for general discussion and retains the
+exact Git ref `ees-only` only where needed to reproduce branch comparisons.
+
 ## Executive Result
 
 There are two materially different comparisons:
@@ -22,7 +25,7 @@ The current upstream comparison is different:
 - `upstream/main`: `796a2de`, dated 2026-05-26
 - merge base: `df5818d`, dated 2026-01-04
 - upstream-only commits: `107`
-- ees-only commits: `14`
+- prototype-branch commits: `14`
 
 Git can merge or rebase these branches without textual conflict. However, the
 automatically merged tree does not compile until one test is adapted, and it
@@ -65,7 +68,8 @@ Automatic merge went well; stopped before committing as requested
 
 No unmerged paths or conflict markers were produced.
 
-The isolated rebase replayed all 14 ees-only commits onto `upstream/main`.
+The isolated rebase replayed all 14 prototype-branch commits onto
+`upstream/main`.
 It also completed without stopping for a conflict. The only three-way fallback
 was `pkg/factory/config.go`, which Git auto-merged.
 
@@ -89,7 +93,7 @@ to:
 NewUserPlaneInformation(...) (*UserPlaneInformation, error)
 ```
 
-The ees-only multi-AN test still expects one return value.
+The prototype branch's multi-AN test still expects one return value.
 
 Affected file:
 
@@ -119,19 +123,19 @@ No other production-package compile conflict was found.
 Change volume from the common base:
 
 - upstream: `+115/-9`
-- ees-only: `+4/-2`
+- prototype branch: `+4/-2`
 
 Upstream substantially refactors URR ownership and lifecycle through the
-`UrrTable` / `UrrEntry` model. Ees-only only guards volume threshold creation
-so the threshold flag is set when the configured threshold is greater than
-zero.
+`UrrTable` / `UrrEntry` model. The prototype branch only guards volume
+threshold creation so the threshold flag is set when the configured threshold
+is greater than zero.
 
 Git merges these changes cleanly because they touch different regions.
 
 Required resolution:
 
 - keep the upstream URR table and lifecycle implementation;
-- retain the ees-only positive-threshold guard;
+- retain the prototype branch's positive-threshold guard;
 - run PFCP establishment, modification, release, and usage-report tests;
 - do not restore any pre-upstream direct `URR.State` ownership assumptions.
 
@@ -143,7 +147,7 @@ affect usage reporting behavior.
 Change volume from the common base:
 
 - upstream: `+72/-19`
-- ees-only: `+116/-58`
+- prototype branch: `+116/-58`
 
 Upstream:
 
@@ -152,7 +156,7 @@ Upstream:
 - isolates newly created UPFs until validation succeeds;
 - avoids fatal process exits for invalid configuration.
 
-Ees-only:
+Prototype branch:
 
 - adds `NupfEeApiRoot` to `UPNode`;
 - loads and serializes that endpoint;
@@ -179,8 +183,9 @@ Required resolution:
 
 #### High: Multi-AN Algorithm Must Not Be Ported Blindly
 
-Ees-only gathers candidates reachable from every configured AN and merges
-them. The selection input does not identify the UE's actual ingress AN.
+The prototype branch gathers candidates reachable from every configured AN
+and merges them. The selection input does not identify the UE's actual ingress
+AN.
 
 If two disconnected AN-UPF paths support the same DNN and S-NSSAI, the merged
 candidate set can select a UPF unreachable from that UE. The existing testbed
@@ -200,7 +205,7 @@ Risk: high. The code auto-merges but can silently choose the wrong UPF.
 Change volume from the common base:
 
 - upstream: `+8/-4`
-- ees-only: `+97/-0`
+- prototype branch: `+97/-0`
 
 This file contains the confirmed constructor compile conflict.
 
@@ -219,14 +224,14 @@ Risk: high until the compile error is fixed; medium afterward.
 Change volume from the common base:
 
 - upstream: `+3/-2`
-- ees-only: `+6/-1`
+- prototype branch: `+6/-1`
 
 Upstream:
 
 - changes `SmfCallbackUriPrefix` to `/nsmf-callback/v1`;
 - permits `nsmf-callback` in `serviceNameList`.
 
-Ees-only:
+Prototype branch:
 
 - changes the Event Exposure prefix;
 - adds Nupf NF ID, timeout, retry, and per-UPF API root settings.
@@ -245,7 +250,7 @@ Required resolution:
 Neither branch's Event Exposure constant should win unchanged:
 
 - upstream still uses `/nsmf_event-exposure/v1`, with an underscore;
-- ees-only embeds `/subscriptions` in the service prefix.
+- the prototype branch embeds `/subscriptions` in the service prefix.
 
 Risk: high because automatic merging preserves an incorrect public URI model.
 
@@ -254,8 +259,8 @@ Risk: high because automatic merging preserves an incorrect public URI model.
 ### NRF Registration
 
 Upstream corrected `ApiFullVersion` and SBI scheme handling in NF service
-registration. Ees-only does not modify the same file, so a merge automatically
-inherits the fix.
+registration. The prototype branch does not modify the same file, so a merge
+automatically inherits the fix.
 
 Decision:
 
@@ -266,9 +271,9 @@ Decision:
 
 ### SBI Server and OAuth
 
-Upstream changed server and callback authorization behavior. Ees-only replaces
-the Event Exposure handler but not `server.go`, so the route remains under the
-upstream OAuth middleware after merging.
+Upstream changed server and callback authorization behavior. The prototype
+branch replaces the Event Exposure handler but not `server.go`, so the route
+remains under the upstream OAuth middleware after merging.
 
 Decision:
 
@@ -308,8 +313,8 @@ Decision:
 
 ## Non-Overlapping EES Files
 
-The following files are additions from ees-only and do not have path-level
-conflicts with upstream:
+The following files are additions from the prototype branch and do not have
+path-level conflicts with upstream:
 
 - `internal/context/nsmf_event_exposure_store.go`
 - `internal/context/nupf_event_exposure_resolver.go`
@@ -393,11 +398,11 @@ Required resolution:
 
 ## Commit-Level Porting Recommendation
 
-Do not merge ees-only wholesale into a production branch merely because Git
-reports no conflict. Create an integration branch from current
+Do not merge the prototype branch wholesale into a production branch merely
+because Git reports no conflict. Create an integration branch from current
 `upstream/main` and port behavior intentionally.
 
-| Ees-only commit area | Recommendation |
+| Prototype-branch commit area | Recommendation |
 | --- | --- |
 | Imported specs and contracts | Port, then decide and document line-ending policy |
 | Implementation plans and guides | Port after correcting paths and limitations |

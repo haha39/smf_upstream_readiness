@@ -7,7 +7,8 @@ Exposure. It is based on:
 
 - the Linux Foundation LFS114 summary and contribution guidance;
 - observed contribution patterns in official free5GC repositories;
-- the public `free5gc/openapi` Issue opened to confirm the preferred direction.
+- [free5gc/openapi#75](https://github.com/free5gc/openapi/issues/75), opened
+  to confirm the preferred OpenAPI ownership, release baseline, and PR order.
 
 Technical implementation and test requirements remain in
 `09-free5gc-development-and-pr-readiness.md`.
@@ -38,9 +39,19 @@ The public Issue should establish:
 - generated package and shared-model placement;
 - whether a temporary handwritten consumer is acceptable.
 
-Internal names such as `Task2`, patch numbers, prototype branch names, and
+Internal task labels, patch numbers, prototype branch names, and
 testbed-specific terminology should not appear in public issues, production
 code, commits, or upstream PR descriptions.
+
+## Future: Portable Evidence Links
+
+Some evidence references use local workspace paths such as `../smf/` and
+`../5G_Infrastructure/`. They remain useful while this repository serves as a
+personal work journal, but GitHub readers cannot resolve them.
+
+Before treating these reports as standalone public documentation, replace
+local paths with revision-pinned GitHub links or repository-relative links
+where the referenced source is available publicly.
 
 ## Repository Ownership
 
@@ -76,7 +87,8 @@ to `free5gc/openapi` and then consumed by an NF:
   is weaker than using a generated client.
 
 These examples support an OpenAPI-first direction, but they do not constitute
-a published rule. The maintainer response to the public Issue remains
+a published rule. Maintainer guidance in
+[openapi#75](https://github.com/free5gc/openapi/issues/75) remains
 authoritative for this contribution.
 
 ## Current Event Exposure Context
@@ -168,5 +180,5 @@ Before implementation-specific PR submission:
 [ ] Related OpenAPI, SMF, UPF, and deployment PRs cross-reference each other
 ```
 
-The `ees-only` branch remains the validated prototype and behavioral reference;
-it is not the branch to submit upstream.
+The prototype branch remains the validated behavioral reference; it is not the
+branch to submit upstream.
