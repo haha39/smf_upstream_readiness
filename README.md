@@ -1,15 +1,15 @@
 # SMF Event Exposure Upstream Readiness
 
 This directory prepares the SMF Event Exposure implementation for an upstream
-free5GC contribution. It records findings from the validated `smf/ees-only`
-prototype, its integration with local NWDAF and go-upf checkouts, and the work
-required to build a clean PR branch from current `upstream/main`.
+free5GC contribution. It records findings from the validated prototype branch,
+its integration with local NWDAF and go-upf checkouts, and the work required
+to build a clean PR branch from current `upstream/main`.
 
 ## Review Snapshot
 
 - Review date: 2026-06-06
 - Latest review update: 2026-06-11
-- SMF: `8668372` (`ees-only`)
+- SMF prototype branch: `8668372` (`ees-only`)
 - NWDAF: `2be6137` (`master`)
 - go-upf: `76e4149` (`dev/ees-next-version`)
 - SMF upstream reference: `796a2de` (`upstream/main`)
@@ -32,23 +32,36 @@ required to build a clean PR branch from current `upstream/main`.
 13. [Protocol interoperability](13-protocol-interoperability.md)
 14. [Transport security and endpoint trust](14-transport-security-and-endpoint-trust.md)
 15. [Deployment scaling and shutdown](15-deployment-scaling-and-shutdown.md)
+16. [Publication security and privacy](16-publication-security-and-privacy.md)
 
 ## Reference Policy
 
 This review refers to official free5GC documentation and Linux Foundation
 LFS114 training material, as well as the applicable 3GPP specifications,
-including TS 29.508, TS 29.564, and TS 29.571.
+including TS 29.508 V19.4.0, TS 29.564 V19.5.0, and TS 29.571 V19.5.0.
 
 Local copies of training chapters and specification files are intentionally
 excluded from this repository. The reports record the relevant source,
 revision, findings, and implications without redistributing those reference
 documents.
 
+## Validation Evidence
+
+- The prototype branch completed a testbed Create-to-Notify flow before
+  this readiness audit.
+- This audit reran selected package tests and compile/lint checks, as recorded
+  in `06-testing-and-upstream-integration.md`.
+- The audit did not rerun the complete NWDAF-SMF-UPF end-to-end testbed flow.
+- Any change ported to the clean PR branch must be validated again against
+  current upstream dependencies.
+
 ## Priority Summary
 
 ### Critical
 
-- No currently confirmed issue blocks the tested Create -> Notify flow.
+- No issue currently identified invalidates the previously reported prototype
+  Create-to-Notify testbed result. The clean upstream PR branch has not yet
+  completed equivalent end-to-end validation.
 
 ### High
 
@@ -94,7 +107,7 @@ documents.
   logged without sanitization.
 - Handwritten EES identifiers do not consistently follow existing SMF telecom
   initialism conventions.
-- Validation does not fully enforce the advertised V0 capability.
+- Validation does not fully enforce the advertised initial capability.
 
 ## Scope
 
