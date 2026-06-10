@@ -30,6 +30,17 @@ required to build a clean PR branch from current `upstream/main`.
 11. [Logging category alignment](11-logging-category-alignment.md)
 12. [Community and upstream contribution](12-community-and-upstream-contribution.md)
 
+## Reference Policy
+
+This review refers to official free5GC documentation and Linux Foundation
+LFS114 training material, as well as the applicable 3GPP specifications,
+including TS 29.508, TS 29.564, and TS 29.571.
+
+Local copies of training chapters and specification files are intentionally
+excluded from this repository. The reports record the relevant source,
+revision, findings, and implications without redistributing those reference
+documents.
+
 ## Priority Summary
 
 ### Critical

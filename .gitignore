@@ -1,0 +1,6 @@
+# Local copies of training material are references, not repository content.
+/Introduction to free5GC (LFS114)/
+
+# Local copies of 3GPP/OpenAPI specifications are not redistributed here.
+/docs/spec/
+/smf/docs/spec/
